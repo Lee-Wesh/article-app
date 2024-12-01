@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article | Mang'u Press</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <i class="bi bi-arrow-left-circle" id="back-icon" style="cursor: pointer;;"></i>
+        <h1 id="article-title" class="article-title"></h1>
+        <p id="article-author" class="article-author"></p>
+        <p id="article-date" class="article-date"></p>
+        <div id="article-content" class="article-content">
+            <!-- Article content will be injected here -->
+        </div>
+    </div>
+
+    <script>
+
+      // Define the function first
+      function insertImagesRandomly(textArray, imagesArray) {
+    const contentContainer = document.getElementById('article-content');
+    const combinedContent = [];
+    
+    // Shuffle the images
+    const shuffledImages = shuffleArray([...imagesArray]); // Create a copy and shuffle
+
+    // Create an index for images
+    let imageIndex = 0;
+
+    // Insert text paragraphs and images
+    textArray.forEach((text) => {
+        combinedContent.push(`<p>${text}</p>`); // Wrap text in <p> tags for proper formatting
+        
+        // Randomly decide to add an image after this paragraph
+        if (imageIndex < shuffledImages.length && Math.random() < 0.5) {
+            const img = `<img src="uploads/${shuffledImages[imageIndex]}" alt="Article Image" class="article-image">`;
+            combinedContent.push(img);
+            imageIndex++; // Move to the next image
+        }
+    });
+
+    // Add remaining images if any
+    while (imageIndex < shuffledImages.length) {
+        const img = `<img src="uploads/${shuffledImages[imageIndex]}" alt="Article Image" class="article-image">`;
+        combinedContent.push(img);
+        imageIndex++;
+    }
+
+    // Join the combined content and set it to the container
+    contentContainer.innerHTML = combinedContent.join('<br><br>');
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+    return array;
+}
+// Fetch the article data
+const articleId = new URLSearchParams(window.location.search).get('id');
+
+fetch(`http://localhost:3000/articles/${articleId}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Article not found');
+        }
+        return response.json();
+    })
+    .then(article => {
+        document.title = article.title;
+
+        const faviconLink = document.createElement('link');
+        faviconLink.rel = 'icon';
+        faviconLink.type = 'image/png'; // Adjust the type based on your image format
+        faviconLink.href = `uploads/${article.coverImage}`; // Set the href to the cover image URL
+        document.head.appendChild(faviconLink);
+
+        document.getElementById('article-title').innerText = article.title;
+        document.getElementById('article-author').innerText = `Written By: ${article.author}`;
+        
+        const dateText = `Published on: ${new Date(article.date).toLocaleDateString()}`;
+        document.getElementById('article-date').innerText = dateText; // Set the date text
+        
+        
+        // Populate articleText and images with the data from the article
+        const articleText = article.content.split('\n'); // Assuming content is a string with line breaks
+        const images = article.images; // This should be an array of image filenames
+
+        // Call function to randomly insert images into the article text
+        insertImagesRandomly(articleText, images); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to load article. Please try again.');
+    });
+    </script>
+    
+    <script>
+        document.getElementById('back-icon').addEventListener('click', function() {
+            window.location.href = 'index.html'; // Redirect to index.html
+        });
+    </script>
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mang'u Press | Mang'u Journalism Club</title>
+    <link rel="icon" href="images/logo.jpeg" type="image/icon type">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="max-width">
+            <div class="logo"><a href="#">Mang'u<span> Press</span></a></div>
+            <ul class="menu">
+                <span class="close-btn">&times;</span>
+                <li><a href="#home" class="menu-btn">Home</a></li>
+                <li><a href="#about" class="menu-btn">About</a></li>
+                <li><a href="#articles" class="menu-btn">Articles</a></li>
+                <li><a href="#gallery" class="menu-btn">Gallery</a></li>
+                <li><a href="#team" class="menu-btn">Team</a></li>
+                <li><a href="#contact" class="menu-btn">Contact</a></li>
+            </ul>
+            <div class="menu-btn-i">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="home" id="home">
+        <div class="max-width">
+            <div class="home-content">
+                <div class="text-1">Welcome to</div>
+                <div class="text-2">Mang'u Press</div>
+                <div class="text-3">And we are <span class="typing"></span></div>
+                <a href="#about">Discover</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- about section start -->
+    <section class="about" id="about">
+        <div class="max-width">
+            <h2 class="title">About us</h2>
+            <div class="about-content">
+                <div class="column left">
+                    <img src="images/logo.jpeg" alt="">
+                </div>
+                <div class="column right">
+                    <div class="text">We are Mang'u Press and we are <span class="typing-2"></span></div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi ut voluptatum eveniet doloremque autem excepturi eaque, sit laboriosam voluptatem nisi delectus. Facere explicabo hic minus accusamus alias fuga nihil dolorum quae. Explicabo illo unde, odio consequatur ipsam possimus veritatis, placeat, ab molestiae velit inventore exercitationem consequuntur blanditiis omnis beatae. Dolor iste excepturi ratione soluta quas culpa voluptatum repudiandae harum non.</p>
+                    <a href="about.html">Read more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="articles" id="articles">
+        <div class="container">
+            <h2 class="title">Latest Articles</h2>
+            <div class="owl-carousel" id="articles-carousel">
+                <!-- Articles will be dynamically injected here -->
+            </div>
+        </div>
+    </section>
+    
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="title">Gallery</h2>
+            <div class="owl-carousel" id="gallery-carousel">
+                <!-- Images will be dynamically injected here -->
+            </div>
+            <a href="gallery.html" class="read-more-i" style="margin-left: 80%;">View All Images</a>
+        </div>
+    </section>
+
+    <script>
+        // Sticky Navbar on Scroll
+        $(window).scroll(function () {
+            if (this.scrollY > 20) {
+                $('.navbar').addClass('sticky');
+            } else {
+                $('.navbar').removeClass('sticky');
+            }
+        });
+
+        $(document).ready(function () {
+    // Toggle menu on button click
+    $('.menu-btn-i').click(function () {
+        $('.navbar .menu').addClass("active"); // Show the menu
+        $(this).hide(); // Hide the hamburger icon
+    });
+
+    // Close the menu when the close button is clicked
+    $('.close-btn').click(function () {
+        $('.navbar .menu').removeClass("active"); // Hide the menu
+        $('.menu-btn-i').show(); // Show the hamburger icon again
+    });
+
+    // Optional: Close the menu when a menu item is clicked
+    $('.menu-btn').click(function () {
+        $('.navbar .menu').removeClass("active"); // Close the menu
+       //  $('.menu-btn-i').show(); // Show the hamburger icon again
+    });
+});
+
+                
+   // Fetch articles function
+    function fetchArticles() {
+    const url = 'http://localhost:3000/articles'; // API endpoint for fetching articles
+    const articlesCarousel = $('#articles-carousel'); // Carousel container
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Parse JSON response
+        })
+        .then(data => {
+            articlesCarousel.empty(); // Clear existing articles
+            data.forEach((article, index) => {
+                const articleElement = `
+                    <div class="item">
+                        <div class="card">
+                            <img src="uploads/${article.coverImage}" class="card-img-top" alt="${article.title}">
+                            <div class="card-body">
+                                <h5 class="card-title">${article.title}</h5>
+                                <br>
+                                <p class="card-text">
+                                    <i class="fas fa-user text-black"></i> ${article.author} &nbsp;
+                                    <i class="fas fa-calendar-alt text-black"></i> ${new Date(article.date).toLocaleDateString()}
+                                </p>
+                                <br>
+                                <p class="card-text">${article.preview}</p>
+                                <a href="article.html?id=${index}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                articlesCarousel.append(articleElement); // Add article to carousel
+            });
+            // Initialize the articles carousel
+            articlesCarousel.owlCarousel({
+                items: 3, // Show 3 articles at a time
+                margin: 7, // Space between articles
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 5000, // 5 seconds transition
+                autoplayHoverPause: true,
+                nav: true,
+                navText: ["<i class='fas fa-chevron-left'></i>", "<i class='fas fa-chevron-right'></i>"], // Font Awesome icons
+                dots: true,
+                responsive: {
+                    0: {
+                        items: 1 // Show 1 article at a time on small devices
+                    },
+                    768: {
+                        items: 2 // Show 2 articles at a time on medium devices
+                    },
+                    992: {
+                        items: 3  // Show 3 articles at a time on larger devices
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching articles:', error));
+}
+
+
+    // New function to fetch images for the gallery
+    function fetchGalleryImages() {
+    const galleryCarousel = $('#gallery-carousel'); // Carousel container
+    const url = 'http://localhost:3000/uploads'; // Assuming you have an endpoint to get images
+
+    // Fetch images from the uploads directory
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Parse JSON response
+        })
+        .then(images => {
+            galleryCarousel.empty(); // Clear existing images
+            images.forEach(image => {
+                const imageElement = `
+                    <div class="item">
+                        <img src="uploads/${image}" alt="Gallery Image" class="img-fluid">
+                    </div>
+                `;
+                galleryCarousel.append(imageElement); // Add image to carousel
+            });
+            // Initialize the gallery carousel
+            galleryCarousel.owlCarousel({
+                items: 3, // Show 3 images at a time on larger devices
+                margin: 20,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true,
+                nav: false,
+                dots: true,
+                responsive: {
+                    0: {
+                        items: 1 // Show 1 image at a time on smaller devices
+                    },
+                    768: {
+                        items: 3 // Show 3 images at a time on larger devices
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching gallery images:', error));
+}
+
+// Call the functions to fetch articles and gallery images on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchArticles(); // Fetch articles
+    fetchGalleryImages(); // Fetch gallery images
+});
+    </script>
+    <script src="script.js"></script>
+
+    <footer class="bg-dark text-white text-center text-lg-start">
+        <div class="container p-4">
+            <div class="row">
+                <!-- Location Section -->
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h5 class="text-uppercase">Location</h5>
+                    <p>
+                        <i class="bi bi-geo-alt-fill"></i> 123 School Road, Mang'u, Kenya
+                    </p>
+                    <p>
+                        <i class="bi bi-telephone-fill"></i> +254 700 000 000
+                    </p>
+                </div>
+                <br>
+                <!-- Social Media Section -->
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h5 class="text-uppercase">Follow Us</h5>
+                    <a href="https://www.instagram.com/mangu_press/" class="text-white me-3" target="_blank">
+                        <i class="bi bi-instagram"></i> Instagram
+                    </a>
+                </div>
+                <br>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h5 class="text-uppercase">Contact Us</h5>
+                    <a href="#" class="text-white me-3">
+                        <i class="bi bi-envelope-fill"></i> journalismmangu@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3">
+            © 2024 Mang'u Press
+        </div>
+    </footer>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyB7nnUYGyfkNees7ZruP5XyRdgfX9zP7pY",
+          authDomain: "mang-u-press.firebaseapp.com",
+          projectId: "mang-u-press",
+          storageBucket: "mang-u-press.firebasestorage.app",
+          messagingSenderId: "400527213355",
+          appId: "1:400527213355:web:5ab6cb1be7e1ceb6877b6e",
+          measurementId: "G-WNSRD7Y73Y"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+</body>
+</html>

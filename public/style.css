@@ -1,0 +1,748 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+html{
+    scroll-behavior: smooth;
+}
+span {
+    color: rgb(123, 50, 50);
+}
+
+/* custom scroll bar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+} 
+section{
+    padding: 100px 0;
+}
+.max-width{
+    max-width: 1300px;
+    padding: 0 80px;
+    margin: auto;
+}
+.about, .articles, .gallery, .teams, .contact, footer{
+    font-family: 'Poppins', sans-serif;
+}
+.about .about-content,
+.articles .serv-content,
+.gallery .gallery-content,
+.contact .contact-content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+section .title{
+    position: relative;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+section .title::before{
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 180px;
+    height: 3px;
+    background: #111;
+    transform: translateX(-50%);
+}
+section .title::after{
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    font-size: 20px;
+    color: rgb(123, 50, 50);
+    padding: 0 5px;
+    background: #fff;
+    transform: translateX(-50%);
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    padding: 30px 0;
+    background: transparent;
+    transition: background 0.3s ease, padding 0.3s ease;
+}
+
+.navbar .max-width{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar.sticky {
+    background: black !important;
+    padding: 15px 0;
+}
+
+
+.navbar .logo a {
+    text-decoration: none;
+    font-size: 24px;
+    color: white;
+}
+
+.navbar .logo span {
+    color: rgb(123, 50, 50);
+}
+
+.navbar .menu {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    float: right;
+}
+
+.navbar .menu li {
+   margin-left: 25px;
+}
+
+.navbar .menu li a {
+    text-decoration: none;
+    color: white !important;
+    font-size: 18px;
+    margin-left: 25px;
+    transition: color 0.3s ease;
+}
+
+.navbar.sticky .menu li a:hover {
+    color: lightgray;
+}
+
+.menu-btn-i{
+    display: none;
+    color: #fff;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.navbar .menu .close-btn {
+    display: none;
+}
+
+.scroll-up-btn{
+    position: fixed;
+    height: 45px;
+    width: 42px;
+    background: #121212;
+    right: 30px;
+    bottom: 10px;
+    text-align: center;
+    line-height: 45px;
+    color: #fff;
+    z-index: 9999;
+    font-size: 30px;
+    border-radius: 6px;
+    border-bottom-width: 2px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+.scroll-up-btn.show{
+    bottom: 30px;
+    opacity: 1;
+    pointer-events: auto;
+}
+.scroll-up-btn:hover{
+    filter: brightness(90%);
+}
+ 
+#back-icon {
+    font-size: 24px; /* Adjust size as needed */
+    color: #333; /* Default color */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+#back-icon:hover {
+    color: rgb(123, 50, 50); /* Change to your desired hover color */
+}
+
+/* home section styling */
+.home{
+    display: flex;
+    background: url("images/Admin.jpg") no-repeat center;
+    height: 100vh;
+    color: #fff;
+    min-height: 500px;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Ubuntu', sans-serif;
+}
+.home .max-width{
+  width: 100%;
+  display: flex;
+}
+.home .max-width .row{
+  margin-right: 0;
+}
+.home .home-content .text-1{
+    font-size: 27px;
+}
+.home .home-content .text-2{
+    font-size: 75px;
+    font-weight: 600;
+    margin-left: -3px;
+}
+.home .home-content .text-3{
+    font-size: 40px;
+    margin: 5px 0;
+}
+.home .home-content .text-3 span{
+    color: rgb(123, 50, 50);
+    font-weight: 500;
+}
+.home .home-content a{
+    display: inline-block;
+    background: #121212;
+    color: #fff;
+    font-size: 25px;
+    padding: 12px 36px;
+    margin-top: 20px;
+    font-weight: 400;
+    border-radius: 6px;
+    border: 2px solid #121212;
+    transition: all 0.3s ease;
+}
+.home .home-content a:hover{
+    color: white;
+    background: rgb(123, 50, 50);
+}
+
+/* about section styling */
+.about .title::after{
+    content: "who we are";
+}
+.about .about-content .left{
+    width: 45%;
+}
+.about .about-content .left img{
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.about .about-content .right{
+    width: 55%;
+}
+.about .about-content .right .text{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.about .about-content .right .text span{
+    color: rgb(123, 50, 50);
+}
+.about .about-content .right p{
+    text-align: justify;
+}
+.about .about-content .right a{
+    display: inline-block;
+    background: #121212;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 30px;
+    margin-top: 20px;
+    border-radius: 6px;
+    border: 2px solid #121212;
+    transition: all 0.3s ease;
+}
+.about .about-content .right a:hover{
+    color: #121212;
+    background: none;
+}
+
+.owl-carousel .item {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center the content horizontally */
+    align-items: stretch; /* Stretch items to take equal height */
+    margin: 10px; /* Add margin between items */
+}
+
+.card {
+    flex: 0.95; /* Allow the card to grow and fill the space equally */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    border: 1px solid #ddd; /* Optional: Add border */
+    border-radius: 5px; /* Optional: Round corners */
+    overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+.card-img-top {
+    height: 250px; /* Set a fixed height for images */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+}
+
+.card-title {
+    font-size: 18px;
+    font-style: bold;
+}
+.card-body {
+    flex: 1; /* Allow the card body to take up remaining space */
+    padding: 15px; /* Add some padding */
+}
+
+.read-more {
+    align-self: flex-end; /* Align the button to the bottom */
+    margin-top: 10px; /* Add some space above the button */
+    background-color: #333; /* Black background */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 15px; /* Add padding */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.read-more:hover {
+    background-color: #555; /* Dark grey on hover */
+}
+
+/* General styles for the navigation arrows */
+.owl-nav {
+    position: absolute; /* Positioning the arrows */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    width: 100%; /* Full width for positioning */
+    display: flex; /* Use flex to align arrows */
+    justify-content: space-between; /* Space between arrows */
+    z-index: 10; /* Ensure arrows are above other elements */
+}
+
+.owl-prev, .owl-next {
+    background-color: rgba(51, 51, 51, 0.7); /* Semi-transparent background */
+    color: white; /* Text color for arrows */
+    border-radius: 50%; /* Round shape */
+    padding: 10px; /* Padding around the arrows */
+    font-size: 24px; /* Size of the arrow icons */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.owl-prev:hover, .owl-next:hover {
+    background-color: rgba(85, 85, 85, 0.9); /* Darker background on hover */
+}
+
+.owl-prev {
+    left: 15px; /* Positioning left arrow */
+}
+
+.owl-next {
+    right: 55px; /* Positioning right arrow */
+}
+
+.article-image {
+    width: 100%; /* Make images responsive */
+    max-width: 300px; /* Set a maximum width for images */
+    height: auto; /* Maintain aspect ratio */
+    margin: 10px 0; /* Add some space around images */
+    display: block; /* Ensure images are block elements */
+}
+
+/* Centering text and images */
+.text-center {
+    text-align: center; /* Center text */
+}
+
+#article-content img {
+    width: 100%; /* Make images responsive */
+    max-width: 600px; /* Optional: set a max width for images */
+    height: 350px; /* Maintain aspect ratio */
+    margin: 20px auto; /* Space around images */
+    display: block; /* Center images */
+}
+
+.article-cover {
+    width: 100%; /* Make images responsive */
+    max-width: 600px; /* Optional: set a max width for images */
+    height: 350px; /* Maintain aspect ratio */
+    margin: 20px auto; /* Space around images */
+    display: block; /* Center images */
+}
+
+.article-title {
+    font-style: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.article-author {
+    font-style: italic;
+    font-weight: bolder;
+}
+
+.article.date {
+    font-style: italic;
+
+}
+
+.article-content {
+    font-family: 'Georgia', serif; /* Use a serif font for a more traditional look */
+    font-size: 16px; /* Base font size */
+    line-height: 1.6; /* Increase line height for better readability */
+    color: #333; /* Dark gray text color for contrast */
+    max-width: 800px; /* Limit the width for better readability */
+    margin: 0 auto; /* Center the content */
+    padding: 20px; /* Add some padding around the content */
+}
+
+.article-content h1, 
+.article-content h2, 
+.article-content h3 {
+    font-family: 'Arial', sans-serif; /* Use a sans-serif font for headings */
+    margin-top: 1.5em; /* Space above headings */
+    margin-bottom: 0.5em; /* Space below headings */
+    color: #222; /* Slightly darker color for headings */
+}
+
+.article-content p {
+    margin-bottom: 0.5em; /* Space between paragraphs */
+}
+
+.article-content img {
+    max-width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+    margin: 20px 0; /* Space around images */
+}
+
+.article-content blockquote {
+    border-left: 4px solid #ccc; /* Stylish left border for blockquotes */
+    padding-left: 16px; /* Space inside blockquote */
+    margin: 20px 0; /* Space above and below blockquotes */
+    font-style: italic; /* Italicize blockquote text */
+    color: #555; /* Lighter color for blockquote text */
+}
+
+/* Additional styles for the article */
+.container {
+    padding: 20px; /* Add some padding to the container */
+}
+
+.gallery {
+    padding: 50px 0;
+}
+
+.gallery .title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.gallery img {
+    width: 100%; /* Make images responsive */
+    height: 300px; /* Fixed height for all images */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    margin: 0 auto;
+}
+
+.gallery .item {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+}
+
+.carousel-controls {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border: 1px solid #121212;
+    border-radius: 5px;
+    margin-left: 60%;
+}
+
+.read-more:hover {
+    color: #121212;
+    background: none;
+}
+
+.read-more-i {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border: 1px solid #121212;
+    border-radius: 5px;
+    margin-left: 60%;
+}
+
+.read-more-i:hover {
+    color: #121212;
+    background: none;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #343a40; /* Dark background for the footer */
+    color: white; /* White text color */
+}
+
+footer .text-uppercase {
+    font-weight: bold; /* Bold text for headings */
+    margin-bottom: 1rem; /* Space below the heading */
+}
+
+footer .container {
+    padding: 2rem 0; /* Padding for the footer container */
+}
+
+footer .row {
+    margin-bottom: 1rem; /* Space between rows */
+}
+
+footer p {
+    margin: 0.5rem 0; /* Margin for paragraph text */
+}
+
+footer a {
+    color: white; /* Default link color */
+    text-decoration: none; /* Remove underline from links */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+footer a:hover {
+    color: rgb(123, 50, 50); /* Change color on hover */
+}
+
+footer .text-center {
+    padding: 1rem 0; /* Padding for the centered text */
+    background-color: #23272b; /* Slightly darker background for the copyright section */
+}
+
+/* responsive media query start */
+@media (max-width: 1104px) {
+    .about .about-content .left img{
+        height: 350px;
+        width: 350px;
+    }
+
+    .owl-nav {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .max-width{
+        padding: 0 50px;
+    }
+}
+@media (max-width: 947px){
+    .navbar .menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: -100%; /* Start off-screen */
+        width: 100%;
+        height: 100vh;
+        background: black; /* Full-screen black background */
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease; /* Smooth transition */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+    
+    .navbar .menu.active {
+        left: 0; /* Slide into view */
+        display: flex;
+    }
+    
+    .navbar .menu li {
+        margin: 20px 0; /* Space between menu items */
+    }
+    
+    .navbar .menu li a {
+        color: white; /* White text for visibility */
+        font-size: 24px;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+    }
+    
+    .navbar .menu li a:hover {
+        color: rgb(123, 50, 50); /* Highlight on hover */
+    }
+    
+    .navbar .menu .close-btn {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+    
+    .menu-btn-i {
+        z-index: 1002; /* Ensure it is above the rest of the content */
+        display: block;
+        transition: opacity 0.3s ease;
+    }
+
+    .menu-btn-i.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .home .home-content .text-2{
+        font-size: 70px;
+    }
+    .home .home-content .text-3{
+        font-size: 35px;
+    }
+    .home .home-content a{
+        font-size: 23px;
+        padding: 10px 30px;
+    }
+    .max-width{
+        max-width: 930px;
+    }
+    .about .about-content .column{
+        width: 100%;
+    }
+    .about .about-content .left{
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 60px;
+    }
+    .about .about-content .right{
+        flex: 100%;
+    }
+    .articles .serv-content .card{
+        width: calc(50% - 10px);
+        margin-bottom: 20px;
+    }
+    .gallery .gallery-content .column,
+    .contact .contact-content .column{
+        width: 100%;
+        margin-bottom: 35px;
+    }
+}
+
+@media (min-width: 948px) {
+    .menu-btn-i {
+        display: none; /* Hide the menu button on larger screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .owl-carousel .item {
+        display: flex; /* Use flexbox for alignment */
+        justify-content: center; /* Center the content horizontally */
+        align-items: stretch; /* Stretch items to take equal height */
+        margin: 10px; /* Add margin between items */
+    }
+
+    .card {
+        flex: 1; /* Allow the card to grow and fill the space equally */
+        display: flex;
+        flex-direction: column; /* Stack children vertically */
+        overflow: hidden; /* Ensure content doesn't overflow */
+        text-align: center; /* Center text within the card */
+        height: 500px; /* Set a fixed height for all cards */
+    }
+
+    .card img {
+        width: 100%; /* Make images responsive */
+        height: 300px; /* Set a fixed height for images */
+        object-fit: cover; /* Ensure images cover the area without distortion */
+    }
+
+    .card-body {
+        flex: 1; /* Allow the card body to take up remaining space */
+        display: flex;
+        flex-direction: column; /* Stack content vertically */
+        justify-content: space-between; /* Space out content */
+        padding: 15px; /* Add padding */
+    }
+
+    .owl-nav {
+        display: none; /* Optionally hide navigation arrows on small devices */
+    }
+    
+    .container .read-more-i {
+        margin-right: 25px;
+        width: 200px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 690px) {
+    .max-width{
+        padding: 0 23px;
+    }
+    .home .home-content .text-2{
+        font-size: 60px;
+    }
+    .home .home-content .text-3{
+        font-size: 32px;
+    }
+    .home .home-content a{
+        font-size: 20px;
+    }
+    .articles .serv-content .card{
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .home .home-content .text-2{
+        font-size: 50px;
+    }
+    .home .home-content .text-3{
+        font-size: 27px;
+    }
+    .about .about-content .right .text,
+    .gallery .gallery-content .left .text{
+        font-size: 19px;
+    }
+    .contact .right form .fields{
+        flex-direction: column;
+    }
+    .contact .right form .name,
+    .contact .right form .email{
+        margin: 0;
+    }
+    .right form .error-box{
+       width: 150px;
+    }
+    .scroll-up-btn{
+        right: 15px;
+        bottom: 15px;
+        height: 38px;
+        width: 35px;
+        font-size: 23px;
+        line-height: 38px;
+    }
+}  

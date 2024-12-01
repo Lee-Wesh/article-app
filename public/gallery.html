@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Mang'u Press</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Additional CSS for spacing between images */
+        #gallery-images .gallery-item {
+            margin-bottom: 15px; /* Space between rows */
+        }
+
+        #gallery-images img {
+            margin: 0 auto; /* Center images */
+            display: block; /* Ensure images are block elements */
+            width: 100%; /* Make images responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" style="background-color: black;">
+        <div class="max-width">
+            <div class="logo"><a href="index.html">Mang'u<span> Press</span></a></div>
+            <ul class="menu">
+                <span class="close-btn">&times;</span>
+                </ul>
+            <div class="menu-btn-i">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        <h2 class="title" style="text-align: center; font-style: bold; text-decoration: underline;">Gallery</h2>
+        <br>
+        <div class="row" id="gallery-images">
+            <!-- Images will be dynamically injected here -->
+        </div>
+    </div>
+
+    <script>
+        // Function to fetch all images for the gallery page
+        function fetchAllImages() {
+            const galleryImagesContainer = document.getElementById('gallery-images');
+            const url = 'http://localhost:3000/uploads'; // Assuming you have an endpoint to get images
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json(); // Parse JSON response
+                })
+                .then(images => {
+                    images.forEach(image => {
+                        const imageElement = `
+                            <div class="col-md-4 gallery-item">
+                                <div class="gallery-item">
+                                    <img src="uploads/${image}" alt="Gallery Image" class="img-fluid">
+                                </div>
+                            </div>
+                        `;
+                        galleryImagesContainer.innerHTML += imageElement; // Add image to the gallery
+                    });
+                })
+                .catch(error => console.error('Error fetching all images:', error));
+        }
+
+        // Call the function to fetch all images on page load
+        document.addEventListener('DOMContentLoaded', fetchAllImages);
+    </script>
+</body>
+</html>

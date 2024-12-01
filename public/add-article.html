@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Article | Mang'u Press</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Article</h2>
+        <form id="add-article-form" enctype="multipart/form-data">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <br><br>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required>
+            <br><br>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <br><br>
+            <label for="images">Images:</label>
+            <input type="file" id="images" name="images" accept="image/*" multiple required>
+            <br><br>
+            <label for="coverImage">Select Cover Image:</label>
+            <select id="coverImage" name="coverImage" required>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <br><br>
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" style="width: 75%; height: 150px;" required></textarea>
+            <br><br>
+            <label for="preview">Preview Text:</label>
+            <textarea id="preview" name="preview" required></textarea>
+            <br><br>
+            <button type="submit">Add Article</button>
+        </form>  
+    </div>
+
+    <script>
+       document.getElementById('add-article-form').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this); // Create FormData object from the form
+
+    fetch('/articles', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Article added successfully!');
+            document.getElementById('add-article-form').reset(); // Reset the form
+        } else {
+            alert('Failed to add article. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error adding article:', error);
+        alert('An error occurred. Please try again.');
+    });
+});
+
+       document.getElementById('images').addEventListener('change', function () {
+        const coverImageSelect = document.getElementById('coverImage');
+        coverImageSelect.innerHTML = ''; // Clear existing options
+
+        Array.from(this.files).forEach(file => {
+            const option = document.createElement('option');
+            option.value = file.name; // Use the file name as the value
+            option.textContent = file.name; // Display the file name
+            coverImageSelect.appendChild(option); // Add each file to the dropdown
+        });
+});
+
+document.getElementById('add-article-form').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this); // Create FormData object from the form
+
+    fetch('/articles', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+                    alert('Article added successfully!');
+                    document.getElementById('add-article-form').reset(); // Reset the form
+                } else {
+                    alert('Failed to add article. Please try again.');
+                }
+            }).catch(error => {
+                console.error('Error adding article:', error);
+                alert('An error occurred. Please try again.');
+            });
+});
+       
+    </script>
+</body>
+</html>
